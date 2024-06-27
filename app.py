@@ -93,7 +93,7 @@ def home_page():
 
 # Define function for Profile page
 def document_page():
-    with open('demo-streamlit/readme.md', 'r', encoding='utf-8') as file:
+    with open('ilssak-streamlit/readme.md', 'r', encoding='utf-8') as file:
         markdown_content = file.read()
     st.markdown(markdown_content, unsafe_allow_html=True)
 
