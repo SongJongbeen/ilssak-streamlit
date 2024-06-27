@@ -8,13 +8,24 @@ import pandas as pd
 # Load environment variables from the .env file
 load_dotenv()
 
-# Connect to the PostgreSQL database
-conn = psycopg2.connect(
-    PG_HOST = os.getenv('PG_HOST', st.secrets.get('PG_HOST')),
-    PG_DATABASE = os.getenv('PG_DATABASE', st.secrets.get('PG_DATABASE')),
-    PG_USER = os.getenv('PG_USER', st.secrets.get('PG_USER')),
-    PG_PASSWORD = os.getenv('PG_PASSWORD', st.secrets.get('PG_PASSWORD'))
-)
+# Retrieve secrets
+db_host = st.secrets["PG_HOST"]
+db_name = st.secrets["PG_DATABASE"]
+db_user = st.secrets["PG_USER"]
+db_password = st.secrets["PG_PASSWORD"]
+
+try:
+    conn = psycopg2.connect(
+        host=db_host,
+        database=db_name,
+        user=db_user,
+        password=db_password
+    )
+    st.success("Connected to the database successfully!")
+except psycopg2.Error as e:
+    st.error(f"Database connection error: {e}")
+except Exception as e:
+    st.error(f"Error: {e}")
 
 # Verify user credentials
 def authenticate_user(username, password):
