@@ -10,10 +10,10 @@ load_dotenv()
 
 # Connect to the PostgreSQL database
 conn = psycopg2.connect(
-    host=os.getenv("PG_HOST"),
-    database=os.getenv("PG_DATABASE"),
-    user=os.getenv("PG_USER"),
-    password=os.getenv("PG_PASSWORD")
+    PG_HOST = os.getenv('PG_HOST', st.secrets.get('PG_HOST')),
+    PG_DATABASE = os.getenv('PG_DATABASE', st.secrets.get('PG_DATABASE')),
+    PG_USER = os.getenv('PG_USER', st.secrets.get('PG_USER')),
+    PG_PASSWORD = os.getenv('PG_PASSWORD', st.secrets.get('PG_PASSWORD'))
 )
 
 # Verify user credentials
